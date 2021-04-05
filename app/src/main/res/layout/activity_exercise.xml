@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ExerciseActivity"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:background="@color/white">
+    tools:context=".ExerciseActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_exercise_activity"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/white"
-        app:titleTextColor="@color/primary"
-        android:theme="@style/ToolbarTheme"/>
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@color/primary" />
+
     <LinearLayout
         android:id="@+id/ll_restView"
         android:layout_width="match_parent"
@@ -68,6 +69,25 @@
                     tools:text="10" />
             </LinearLayout>
         </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/upcoming_exercise"
+            android:textSize="16sp"
+            android:textColor="#888"/>
+
+        <TextView
+            android:id="@+id/tv_upcomingExerciseName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/exercise_name"
+            android:textColor="#212121"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -79,6 +99,15 @@
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/image"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_jumping_jacks" />
 
         <TextView
             android:id="@+id/tvExerciseName"

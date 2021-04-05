@@ -16,6 +16,9 @@ class ExerciseActivity : AppCompatActivity() {
     private var exerciseProgress = 0
     private var exerciseTimerDuration: Long = 30
 
+    private var exerciseList: ArrayList<ExerciseModel>? = null
+    private var currentExercisePosition = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise)
@@ -28,6 +31,8 @@ class ExerciseActivity : AppCompatActivity() {
         toolbar_exercise_activity.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        exerciseList = Constants.defaultExerciseList()
 
         setupRestView()
     }
@@ -56,16 +61,21 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                currentExercisePosition++
                 setupExerciseView()
             }
         }.start()
     }
 
     private fun setupRestView() {
+        ll_restView.visibility = View.VISIBLE
+        ll_exerciseView.visibility = View.GONE
         if (restTimer != null) {
             restTimer!!.cancel()
             restProgress = 0
         }
+        tv_upcomingExerciseName.text = exerciseList!![currentExercisePosition + 1].getName()
+
         setRestProgressBar()
     }
 
@@ -84,11 +94,16 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExerciseActivity,
-                    "Here we will start the next rest screen.",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                if (currentExercisePosition < exerciseList?.size!! - 1) {
+                    setupRestView()
+                } else {
+                    Toast.makeText(
+                        this@ExerciseActivity,
+                        "You have finished the 7 minutes workout.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }.start()
     }
@@ -103,5 +118,8 @@ class ExerciseActivity : AppCompatActivity() {
             exerciseProgress = 0
         }
         setExerciseProgressBar()
+
+        iv_image.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        tvExerciseName.text = exerciseList!![currentExercisePosition].getName()
     }
 }
