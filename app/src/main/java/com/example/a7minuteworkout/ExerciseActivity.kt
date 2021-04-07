@@ -1,5 +1,6 @@
 package com.example.a7minuteworkout
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -20,8 +21,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimerDuration: Long = 30
-    private var restTimerDuration: Int = 10
+    private var exerciseTimerDuration: Long = 30 //1 for testing fast
+    private var restTimerDuration: Int = 10  //1 for testing fast
 
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
@@ -85,7 +86,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun setRestProgressBar() {
-        progressBar.progress = restProgress
+        progressBar.progress = restProgress //for testing fast change 10000 to 1000
         restTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
@@ -138,18 +139,18 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
             override fun onFinish() {
-
+                //if (currentExercisePosition < exerciseList?.size!! - 1)  for test fast
+                    // finishing each exercise
                 if (currentExercisePosition < exerciseList?.size!! - 1) {
                     exerciseList!![currentExercisePosition].setIsSelected(false)
                     exerciseList!![currentExercisePosition].setIsCompleted(true)
                     exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 } else {
-                    Toast.makeText(
-                        this@ExerciseActivity,
-                        "You have finished the 7 minutes workout.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // finishing the last exercise
+                    finish()
+                    val intent = Intent(this@ExerciseActivity, FinishActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }.start()
