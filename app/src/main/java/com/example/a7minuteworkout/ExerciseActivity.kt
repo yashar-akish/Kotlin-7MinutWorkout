@@ -6,8 +6,10 @@ import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_exercise.*
 import java.util.*
 
@@ -19,12 +21,15 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
     private var exerciseTimerDuration: Long = 30
+    private var restTimerDuration: Int = 10
 
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
 
     private var tts: TextToSpeech? = null
     private var player: MediaPlayer? = null
+
+    private var exerciseAdapter: ExerciseStatusAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +50,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         exerciseList = Constants.defaultExerciseList()
 
         setupRestView()
+
+        setupExerciseStatusRecyclerView()
     }
 
 
@@ -82,12 +89,14 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         restTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
-                progressBar.progress = 10 - restProgress
-                tv_timer.text = (10 - restProgress).toString()
+                progressBar.progress = restTimerDuration - restProgress
+                tv_timer.text = (restTimerDuration - restProgress).toString()
             }
 
             override fun onFinish() {
                 currentExercisePosition++
+                exerciseList!![currentExercisePosition].setIsSelected(true)
+                exerciseAdapter!!.notifyDataSetChanged()
                 setupExerciseView()
             }
         }.start()
@@ -131,6 +140,9 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             override fun onFinish() {
 
                 if (currentExercisePosition < exerciseList?.size!! - 1) {
+                    exerciseList!![currentExercisePosition].setIsSelected(false)
+                    exerciseList!![currentExercisePosition].setIsCompleted(true)
+                    exerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 } else {
                     Toast.makeText(
@@ -161,6 +173,10 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tvExerciseName.text = exerciseList!![currentExercisePosition].getName()
     }
 
+    /**
+     * text to speech functions
+     */
+
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             val result = tts!!.setLanguage(Locale.US)
@@ -174,5 +190,17 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun speakOut(text: String) {
         tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    /**
+     * recycler functions
+     */
+
+    private fun setupExerciseStatusRecyclerView(){
+        rvExerciseStatus.layoutManager = LinearLayoutManager(this,
+            LinearLayoutManager.HORIZONTAL, false)
+
+        exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
+        rvExerciseStatus.adapter = exerciseAdapter
     }
 }
