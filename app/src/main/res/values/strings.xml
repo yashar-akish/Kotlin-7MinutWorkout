@@ -9,4 +9,8 @@
     <string name="congratulations">Congratulations!</string>
     <string name="you_have_done_the_workout">You have done the workout!</string>
     <string name="finish">FINISH</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="this_will_stop_your_workout_you_ve_come_this_far_are_you_sure_you_want_to_quit">This will stop your workout. You\'ve come this far, are you sure you want to quit?</string>
+    <string name="are_you_sure">Are you sure?</string>
 </resources>
