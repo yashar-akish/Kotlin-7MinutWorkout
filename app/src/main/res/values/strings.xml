@@ -11,6 +11,16 @@
     <string name="finish">FINISH</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
-    <string name="this_will_stop_your_workout_you_ve_come_this_far_are_you_sure_you_want_to_quit">This will stop your workout. You\'ve come this far, are you sure you want to quit?</string>
+    <string name="stop_and_quit">This will stop your workout. You\'ve come this far, are you sure you want to quit?</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="calculator">Calculator</string>
+    <string name="your_bmi">YOUR BMI</string>
+    <string name="weight_in_kg">WEIGHT (in kg)</string>
+    <string name="height_in_cm">HEIGHT (in cm)</string>
+    <string name="calculate">CALCULATE</string>
+    <string name="metric_units">METRIC UNITS</string>
+    <string name="us_units">US UNITS</string>
+    <string name="weight_in_lbs">WEIGHT (in lbs)</string>
+    <string name="feet">Feet</string>
+    <string name="inch">Inch</string>
 </resources>
