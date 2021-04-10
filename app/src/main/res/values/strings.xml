@@ -23,4 +23,8 @@
     <string name="weight_in_lbs">WEIGHT (in lbs)</string>
     <string name="feet">Feet</string>
     <string name="inch">Inch</string>
+    <string name="bmi">BMI</string>
+    <string name="history">History</string>
+    <string name="exercise_completed">EXERCISE COMPLETED</string>
+    <string name="no_data_available">NO DATA AVAILABLE</string>
 </resources>

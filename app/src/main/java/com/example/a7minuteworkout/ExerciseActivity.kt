@@ -23,8 +23,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimerDuration: Long = 30 //1 for testing fast
-    private var restTimerDuration: Int = 10  //1 for testing fast
+    private var exerciseTimerDuration: Long = 1//30 //1 for testing fast
+    private var restTimerDuration: Int = 1//10  //1 for testing fast
 
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
@@ -90,7 +90,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setRestProgressBar() {
         progressBar.progress = restProgress //for testing fast change 10000 to 1000
-        restTimer = object : CountDownTimer(10000, 1000) {
+        restTimer = object : CountDownTimer(1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 progressBar.progress = restTimerDuration - restProgress
