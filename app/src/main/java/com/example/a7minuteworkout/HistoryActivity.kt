@@ -30,7 +30,7 @@ class HistoryActivity : AppCompatActivity() {
         val dbHandler = SqliteOpenHelper(this, null)
         val allCompletedDatesList = dbHandler.getAllCompletedDatesList()
 
-        if(allCompletedDatesList.size > 0){
+        if (allCompletedDatesList.size > 0) {
             tvHistory.visibility = View.VISIBLE
             rvHistory.visibility = View.VISIBLE
             tvNoDataAvailable.visibility = View.GONE
@@ -38,7 +38,7 @@ class HistoryActivity : AppCompatActivity() {
             rvHistory.layoutManager = LinearLayoutManager(this)
             val historyAdapter = HistoryAdapter(this, allCompletedDatesList)
             rvHistory.adapter = historyAdapter
-        }else{
+        } else {
             tvHistory.visibility = View.GONE
             rvHistory.visibility = View.GONE
             tvNoDataAvailable.visibility = View.VISIBLE

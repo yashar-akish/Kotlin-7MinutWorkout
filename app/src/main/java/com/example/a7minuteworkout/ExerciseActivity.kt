@@ -8,8 +8,6 @@ import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_exercise.*
@@ -23,8 +21,8 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private var exerciseTimer: CountDownTimer? = null
     private var exerciseProgress = 0
-    private var exerciseTimerDuration: Long = 1//30 //1 for testing fast
-    private var restTimerDuration: Int = 1//10  //1 for testing fast
+    private var exerciseTimerDuration: Long = 30 //1 for testing fast
+    private var restTimerDuration: Int = 10  //1 for testing fast
 
     private var exerciseList: ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
@@ -81,7 +79,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             tts!!.shutdown()
         }
 
-        if (player != null){
+        if (player != null) {
             player!!.stop()
         }
 
@@ -90,7 +88,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun setRestProgressBar() {
         progressBar.progress = restProgress //for testing fast change 10000 to 1000
-        restTimer = object : CountDownTimer(1000, 1000) {
+        restTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restProgress++
                 progressBar.progress = restTimerDuration - restProgress
@@ -143,7 +141,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onFinish() {
                 //if (currentExercisePosition < exerciseList?.size!! - 1)  for test fast
-                    // finishing each exercise
+                // finishing each exercise
                 if (currentExercisePosition < exerciseList?.size!! - 1) {
                     exerciseList!![currentExercisePosition].setIsSelected(false)
                     exerciseList!![currentExercisePosition].setIsCompleted(true)
@@ -200,9 +198,11 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
      * recycler functions
      */
 
-    private fun setupExerciseStatusRecyclerView(){
-        rvExerciseStatus.layoutManager = LinearLayoutManager(this,
-            LinearLayoutManager.HORIZONTAL, false)
+    private fun setupExerciseStatusRecyclerView() {
+        rvExerciseStatus.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL, false
+        )
 
         exerciseAdapter = ExerciseStatusAdapter(exerciseList!!, this)
         rvExerciseStatus.adapter = exerciseAdapter
@@ -212,7 +212,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
      *  exit confirmation
      */
 
-    private fun customDialogForBackButton(){
+    private fun customDialogForBackButton() {
 
         val customDialog = Dialog(this)
         customDialog.setContentView(R.layout.dialog_custom_back_confirmation)

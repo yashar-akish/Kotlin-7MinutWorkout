@@ -8,22 +8,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_history_row.view.*
 
-class HistoryAdapter(val context: Context, val items: ArrayList<String>)
-    : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(val context: Context, val items: ArrayList<String>) :
+    RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val llHistoryMainItem = view.ll_history_item_main
         val tvItem = view.tvItem
         val tvPosition = view.tvPosition
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_history_row, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.item_history_row, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val date : String = items.get(position)
+        val date: String = items.get(position)
         holder.tvPosition.text = (position + 1).toString()
         holder.tvItem.text = date
 
